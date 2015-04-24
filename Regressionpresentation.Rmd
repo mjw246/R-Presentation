@@ -1,10 +1,15 @@
 # Introduction
 
-First we need to save data frame as **.csv** file in R  
-I called my folder "Mitch Regression Presentation"  
-Click that foler and "set as working directory"  
+To find the data set  
+- Go to github.com/mjw246 
+- Click repositories  
+- Click "R-Presentation"
+- Go into the data folder  
+- Data set title is "MultipleLinearRegression" (even though it really isn't one)  
 
-R script should then look like
+Download data frame
+Set it as repository  
+Something like below  
 
 ```{r, echo=FALSE}
 setwd("~/week post break/Mitch Regression Presentation")
@@ -12,7 +17,7 @@ setwd("~/week post break/Mitch Regression Presentation")
 
 Make sure you don't set the "data" folder as the working directory!  
 
-Then 
+Then name it as...  
 ```{r}
 nomoreg <- read.csv("data/MultipleLinearRegression.csv")
 head(nomoreg)
@@ -147,13 +152,15 @@ ggplot(nomoregmelt, aes(x=Decibels, y= `Average Frequency`, colour=Frequency, sh
   panel.background = element_blank(), axis.line = element_line(colour = "black"))
 ```
 
-And there you have it?  
+And there you have it
+
+# Questions
 
 But there are still a couple of things wrong this graph...  
-Things i do NOT know how to change...
+Things i do NOT know how to change...  
 
-- First, how to take the periods away from the frequency titles
-- Second, how to get rid of "frequency" title and make a proper legend
+- First, how do you take the periods away from the frequency titles?
+- Second, how do you get rid of "frequency" title and make a proper legend?
 
-How would you guys do this??
+
 
