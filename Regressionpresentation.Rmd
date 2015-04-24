@@ -1,0 +1,159 @@
+# Introduction
+
+First we need to save data frame as **.csv** file in R  
+I called my folder "Mitch Regression Presentation"  
+Click that foler and "set as working directory"  
+
+R script should then look like
+
+```{r, echo=FALSE}
+setwd("~/week post break/Mitch Regression Presentation")
+```
+
+Make sure you don't set the "data" folder as the working directory!  
+
+Then 
+```{r}
+nomoreg <- read.csv("data/MultipleLinearRegression.csv")
+head(nomoreg)
+```
+
+Now you can see what the data frame looks like straight from the **.csv** file  
+However, this is not R friendly for ggplot  
+We need to do something MORE involving the *melt* function   
+
+# "Melting" Your Data Set
+
+First thing is to go into the console and type **?mark.data.frame**  
+The key "argument" here is *id.vars* , which is a vector of id variables  
+Create a new heading using the melt function  
+BUT FIRST!! We have to open the "reshape2" package  
+THEN we can create the "melted" data set  
+
+```{r}
+library(reshape2)
+nomoregmelt <- melt(nomoreg,id.vars="Decibels")
+head(nomoregmelt)
+```
+
+So now you see i've created 3 columns:  
+- Decibels (my x value)  
+- variable (titled average minimum, average maximum, or average peak frequency)  
+- value (the actual frequency values)  
+
+Too see the entire data set now you just need to "view" nomoregmelt
+
+# Making the Graph
+
+First open ggplot 2
+
+```{r}
+library(ggplot2)
+```
+Then we create **regression graph 1**
+
+```{r}
+ggplot(nomoregmelt, aes(x=Decibels, y= value))+
+  geom_point(shape=1)
+```
+
+Here i told r that our x values represent "Decibels"  
+and that our y is the numbers from the "value" column in the melted data frame  
+
+So now we've got all three sets of y values placed under one x value (Decibels) 
+
+However, this is ugly, real ugly  
+- Which set of data represents average peak frequency?    
+- What do the points even mean?!  
+- Wait, what does "value" mean??!  
+- WHAT DOES ANY OF THIS MEAN???  
+
+Calm down people, everything will be, just fine...   
+
+Well, first thing we can do is change the color and shape of the points   
+and then indicate which set of points represents which set of data  
+
+```{r}
+ggplot(nomoregmelt, aes(x=Decibels, y= value, colour=variable, shape=variable))+
+  geom_point()
+```
+
+Ok, well this certainly an improvement
+
+Now we've told R to make the color and shapes of the "variable" values different  
+Remember that's why we made three columns from the "melted" data frame  
+- Decibels = x values  
+- value = frequency values, aka y values  
+- variable = average minimum, maximum, and peak frequency  
+
+Now the color and shape of the points are connected to "variable"  
+You might also noticed that all these changes are in the first row of the ggplot script  
+- "geom_point()" has nothing in the parenthesis
+
+If we put something in the geom_point() then we get something like...
+
+
+```{r}
+ggplot(nomoregmelt, aes(x=Decibels, y= value, colour=variable, shape=variable))+
+  geom_point(shape=1)
+```
+
+Putting the shape in the top row of the ggplot script sets stuff for the entire set of  
+data frames
+
+ok back to the RIGHT way
+```{r}
+ggplot(nomoregmelt, aes(x=Decibels, y= value, colour=variable, shape=variable))+
+  geom_point()
+```
+
+Now we need to change the name of "value" and "variable" to something that's less vague    
+
+To do this we have to back to the original "nomoregmelt" script and change it  
+We introduce two new arguments from **?mark.data.frame**   
+- value.name  
+- variable.name  
+
+```{r}
+nomoregmelt <- melt(nomoreg, id.vars="Decibels", value.name="Average Frequency", variable.name="Frequency")
+```
+now we plug these new values back into the ggplot script from before  
+WHAT? value and variable are evolving!...
+
+```{r}
+ggplot(nomoregmelt, aes(x=Decibels, y= `Average Frequency`, colour=Frequency, shape=Frequency))+ geom_point()
+```
+
+value has evolved into Average Frequency and  
+variable has evolved into Frequency! Thus ends the pokemon reference  
+
+And thus ends my terrible pokemon reference  
+
+But there are few more things i'd like to do, like add trendlines 
+
+```{r}
+ggplot(nomoregmelt, aes(x=Decibels, y= `Average Frequency`, colour=Frequency, shape=Frequency))+ 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+And last, let's get rid of that grey background and gridlines
+
+```{r}
+ggplot(nomoregmelt, aes(x=Decibels, y= `Average Frequency`, colour=Frequency, shape=Frequency))+ 
+  geom_point()+
+  geom_smooth(method=lm)+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+  panel.background = element_blank(), axis.line = element_line(colour = "black"))
+```
+
+And there you have it?  
+
+But there are still a couple of things wrong this graph...  
+Things i do NOT know how to change...
+
+- First, how to take the periods away from the frequency titles
+- Second, how to get rid of "frequency" title and make a proper legend
+
+How would you guys do this??
+

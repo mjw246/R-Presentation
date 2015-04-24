@@ -1,0 +1,37 @@
+Regression presentation
+========================================================
+author: 
+date: 
+
+Introduction
+========================================================
+
+First we need to save data frame as **.csv** file in R  
+I called my folder "Project Presentation"  
+Click that foler and "set as working directory"  
+
+```{r, echo=FALSE}
+setwd("~/week post break/Project Presentation")
+```
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+Slide With Code
+========================================================
+
+```{r}
+nomoreg <- read.csv("data/MultipleLinearRegression.csv")
+head(nomoreg)
+```
+
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+ggplot(nomoregmelt, aes(x=Decibels, y= value))+
+  geom_point(shape=1)
+```
+
