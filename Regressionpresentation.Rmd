@@ -11,9 +11,7 @@ To find the data set and Rmd file,
 
 Download data frame
 Set it as repository  
-Something like below  
-
-Make sure you don't set the "data" folder as the working directory!  
+  
 
 Then name it as...  
 ```{r}
@@ -53,7 +51,7 @@ First open ggplot 2
 ```{r}
 library(ggplot2)
 ```
-Then we create **regression graph 1**
+Then we create our first prototype  
 
 ```{r}
 ggplot(nomoregmelt, aes(x=Decibels, y= value))+
