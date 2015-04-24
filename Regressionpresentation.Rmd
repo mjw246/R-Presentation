@@ -1,19 +1,17 @@
 # Introduction
 
-To find the data set  
+To find the data set and Rmd file,  
 - Go to github.com/mjw246 
 - Click repositories  
-- Click "R-Presentation"
-- Go into the data folder  
-- Data set title is "MultipleLinearRegression" (even though it really isn't one)  
+- Click "R-Presentation"  
+- Clone to Desktop  
+- Add to your R library  
+- Data set title is **MultipleLinearRegression** (even though it really isn't one)  
+- Rmd file is called **Regressionpresentation.Rmd**
 
 Download data frame
 Set it as repository  
 Something like below  
-
-```{r, echo=FALSE}
-setwd("~/week post break/Mitch Regression Presentation")
-```
 
 Make sure you don't set the "data" folder as the working directory!  
 
@@ -42,11 +40,11 @@ head(nomoregmelt)
 ```
 
 So now you see i've created 3 columns:  
-- Decibels (my x value)  
+- Decibels  
 - variable (titled average minimum, average maximum, or average peak frequency)  
 - value (the actual frequency values)  
 
-Too see the entire data set now you just need to "view" nomoregmelt
+Too see the entire data set now you just need to "View" nomoregmelt
 
 # Making the Graph
 
@@ -103,8 +101,7 @@ ggplot(nomoregmelt, aes(x=Decibels, y= value, colour=variable, shape=variable))+
   geom_point(shape=1)
 ```
 
-Putting the shape in the top row of the ggplot script sets stuff for the entire set of  
-data frames
+Putting the shape in the top row of the ggplot script sets stuff for the entire set of data frames  
 
 ok back to the RIGHT way
 ```{r}
@@ -129,10 +126,11 @@ WHAT? value and variable are evolving!...
 ggplot(nomoregmelt, aes(x=Decibels, y= `Average Frequency`, colour=Frequency, shape=Frequency))+ geom_point()
 ```
 
-value has evolved into Average Frequency and  
-variable has evolved into Frequency! Thus ends the pokemon reference  
+value has evolved into Average Frequency AND  
+variable has evolved into Frequency!  
 
-And thus ends my terrible pokemon reference  
+Thus ends the value/variable title debacle  
+And, thankfully, my terrible pokemon reference    
 
 But there are few more things i'd like to do, like add trendlines 
 
@@ -142,7 +140,10 @@ ggplot(nomoregmelt, aes(x=Decibels, y= `Average Frequency`, colour=Frequency, sh
   geom_smooth(method=lm)
 ```
 
-And last, let's get rid of that grey background and gridlines
+And last, let's get rid of the following:  
+- Grey background  
+- Major and minor gridlines  
+- And let's make the axis lines black    
 
 ```{r}
 ggplot(nomoregmelt, aes(x=Decibels, y= `Average Frequency`, colour=Frequency, shape=Frequency))+ 
